@@ -18,3 +18,4 @@ fastai2
 uvicorn
 ipykernel
 starlette
+googledrivedownloader
