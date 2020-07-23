@@ -8,9 +8,9 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
-#https://drive.google.com/file/d/18xaQ4IBNutJ0Kn9lWs6GrMxYj_6Mz3wG/view?usp=sharing
+#https://drive.google.com/file/d/1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw/view?usp=sharing
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
-export_file_url = 'https://drive.google.com/uc?export=download&id=18xaQ4IBNutJ0Kn9lWs6GrMxYj_6Mz3wG'
+export_file_url = 'https://drive.google.com/uc?export=download&id=1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
 export_file_name = 'export.pkl'
 
 classes = ['cats_motorcycle','cats_running','cats_space','dogs_cars','dogs_motorcycle','dogs_swimming']
