@@ -7,10 +7,12 @@ from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
+from google_drive_downloader import GoogleDriveDownloader as gdd
 
 #https://drive.google.com/file/d/1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw/view?usp=sharing
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
-export_file_url = 'https://drive.google.com/uc?export=download&id=1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
+export_file_url = '1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
+                 #'https://drive.google.com/uc?export=download&id=1ltDQaHZ8aNjColv9taqi4ksTc_krwFnr'
 export_file_name = 'export.pkl'
 
 classes = ['cats_motorcycle','cats_running','cats_space','dogs_cars','dogs_motorcycle','dogs_swimming']
@@ -21,15 +23,29 @@ app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Reques
 app.mount('/static', StaticFiles(directory='app/static'))
 
 
+#gdd.download_file_from_google_drive(file_id='1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw',
+#                                    dest_path='./data/export.pkl',
+#                                    unzip=True)
+
 async def download_file(url, dest):
     if dest.exists(): return
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
+        async with gdd.download_file_from_google_drive(file_id=url,
+                                    dest_path=dest,
+                                    unzip=True) as response:
             data = await response.read()
             with open(dest, 'wb') as f:
                 f.write(data)
 
-
+#async def download_file(url, dest):
+#    if dest.exists(): return
+#    async with aiohttp.ClientSession() as session:
+#        async with session.get(url) as response:
+#            data = await response.read()
+#            with open(dest, 'wb') as f:
+#                f.write(data)
+                
+                
 async def setup_learner():
     await download_file(export_file_url, path / export_file_name)
     try:
