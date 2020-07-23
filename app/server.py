@@ -30,12 +30,10 @@ app.mount('/static', StaticFiles(directory='app/static'))
 async def download_file(url, dest):
     if dest.exists(): return
     async with aiohttp.ClientSession() as session:
-        async with gdd.download_file_from_google_drive(file_id=url,
+        gdd.download_file_from_google_drive(file_id=url,
                                     dest_path=dest,
-                                    unzip=True) as response:
-            data = await response.read()
-            with open(dest, 'wb') as f:
-                f.write(data)
+                                    unzip=True) 
+
 
 #async def download_file(url, dest):
 #    if dest.exists(): return
