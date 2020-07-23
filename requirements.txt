@@ -16,3 +16,4 @@ scipy
 spacy
 fastai2
 uvicorn
+ipykernel
