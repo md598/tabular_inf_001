@@ -12,7 +12,6 @@ from google_drive_downloader import GoogleDriveDownloader as gdd
 #https://drive.google.com/file/d/1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw/view?usp=sharing
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
 export_file_url = '1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
-                 #'https://drive.google.com/uc?export=download&id=1ltDQaHZ8aNjColv9taqi4ksTc_krwFnr'
 export_file_name = 'export.pkl'
 
 classes = ['cats_motorcycle','cats_running','cats_space','dogs_cars','dogs_motorcycle','dogs_swimming']
@@ -23,17 +22,10 @@ app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Reques
 app.mount('/static', StaticFiles(directory='app/static'))
 
 
-#gdd.download_file_from_google_drive(file_id='1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw',
-#                                    dest_path='./data/export.pkl',
-#                                    unzip=True)
-
 async def download_file(url, dest):
     if dest.exists(): return
     async with aiohttp.ClientSession() as session:
-        gdd.download_file_from_google_drive(file_id=url,
-                                    dest_path=dest,
-                                    unzip=True) 
-
+        gdd.download_file_from_google_drive(file_id=url, dest_path=dest, unzip=True) 
 
 #async def download_file(url, dest):
 #    if dest.exists(): return
@@ -42,8 +34,7 @@ async def download_file(url, dest):
 #            data = await response.read()
 #            with open(dest, 'wb') as f:
 #                f.write(data)
-                
-                
+                             
 async def setup_learner():
     await download_file(export_file_url, path / export_file_name)
     try:
@@ -71,16 +62,45 @@ async def homepage(request):
     return HTMLResponse(html_file.open().read())
 
 
+#@app.route('/analyze', methods=['POST'])
+#async def analyze(request):
+#  img_data = await request.form()
+#  img_bytes = await (img_data['file'].read()) ##original
+#  pred = learn.predict(BytesIO(img_bytes))[0]
+#  return JSONResponse({
+#      'results': str(pred)
+#  })
+
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
   img_data = await request.form()
-  img_bytes = await (img_data['file'].read())
-  pred = learn.predict(BytesIO(img_bytes))[0]
+  img_bytes = (img_data["img"])
+  bytes = base64.b64decode(img_bytes)
+  img = open_image(BytesIO(bytes))
+  pred = learn.predict(img)[0]
   return JSONResponse({
       'results': str(pred)
   })
 
 
+#@app.route("/upload", methods=["POST"])
+#async def upload(request):
+#    data = await request.form()
+#    img_bytes = (data["img"])
+#    bytes = base64.b64decode(img_bytes)
+#    return predict_from_bytes(bytes)
+  
+#def predict_from_bytes(bytes):
+#    img = open_image(BytesIO(bytes))
+#    print (learn.model)
+#    _,_,losses = learn.predict(img)
+#    predictions = sorted(zip(classes, map(float, losses)), key=lambda p: p[1], reverse=True)
+#    result_html1 = path/'static'/'result1.html'
+#    result_html2 = path/'static'/'result2.html'
+#    
+#    result_html = str(result_html1.open().read() +str(predictions[0:2]) + result_html2.open().read())
+#    return HTMLResponse(result_html)
+  
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
