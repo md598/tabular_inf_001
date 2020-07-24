@@ -80,6 +80,7 @@ async def analyze(request):
   #img = open_image(BytesIO(img_bytes))
   img = Image.open(BytesIO(img_bytes))
   print('img'), print(img)
+  print('pred time')
   pred = learn.predict(img_np)[0]
   return JSONResponse({
       'results': str(pred) ##original
