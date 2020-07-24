@@ -13,8 +13,9 @@ import base64
 #https://drive.google.com/file/d/1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw/view?usp=sharing
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
 #'1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
+#'1Sgq4h-2oLT-DQtr3Nm9Fjco81lwFNj_q' #zip version not working
 
-export_file_url = '1Sgq4h-2oLT-DQtr3Nm9Fjco81lwFNj_q'
+export_file_url = '1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
 export_file_name = 'export.pkl'
 
 classes = ['cats_motorcycle','cats_running','cats_space','dogs_cars','dogs_motorcycle','dogs_swimming']
