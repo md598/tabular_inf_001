@@ -83,6 +83,8 @@ async def analyze(request):
   print('img'), print(img)
   print('pred time')
   pred = learn.predict(img_np)[0]
+  print('pred'), print(pred)
+  print('pred_all'),print(learn.predict(img_np))
   return JSONResponse({
       'results': str(pred) ##original
 #       'result': str(pred[0])
