@@ -44,6 +44,7 @@ async def setup_learner():
     try:
         learn = torch.load(path/export_file_name, map_location=torch.device('cpu'))
         learn.dls.device = 'cpu'
+        learn.to_fp32()
         return learn
     except RuntimeError as e:
         if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
