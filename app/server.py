@@ -68,7 +68,7 @@ async def analyze(request):
   img_data = await request.form()
   img_bytes = await (img_data['file'].read()) ##original
 #  img_bytes = (img_data['file']) 
-  pred = learn.predict(BytesIO(img_bytes))[0]
+  pred = learn.predict(img_bytes)[0]
   return JSONResponse({
       'results': str(pred)
   })
