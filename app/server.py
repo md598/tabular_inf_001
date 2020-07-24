@@ -63,25 +63,26 @@ async def homepage(request):
     return HTMLResponse(html_file.open().read())
 
 
-#@app.route('/analyze', methods=['POST'])
-#async def analyze(request):
-#  img_data = await request.form()
-#  img_bytes = await (img_data['file'].read()) ##original
-#  pred = learn.predict(BytesIO(img_bytes))[0]
-#  return JSONResponse({
-#      'results': str(pred)
-#  })
-
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
   img_data = await request.form()
-  img_bytes = (img_data['file'])
-  bytes = base64.b64decode(img_bytes)
-  img = open_image(BytesIO(bytes))
-  pred = learn.predict(img)[0]
+#  img_bytes = await (img_data['file'].read()) ##original
+  img_bytes = await (img_data["img"]) ##original
+  pred = learn.predict(BytesIO(img_bytes))[0]
   return JSONResponse({
       'results': str(pred)
   })
+
+#@app.route('/analyze', methods=['POST'])
+#async def analyze(request):
+#  img_data = await request.form()
+#  img_bytes = (img_data['file'])
+#  bytes = base64.b64decode(img_bytes)
+#  img = open_image(BytesIO(bytes))
+#  pred = learn.predict(img)[0]
+#  return JSONResponse({
+#      'results': str(pred)
+#  })
 
 
 #@app.route("/upload", methods=["POST"])
