@@ -64,7 +64,8 @@ async def analyze(request):
   img_data = await request.form()
   img_bytes = await (img_data['file'].read()) ##original
   img = Image.open(BytesIO(img_bytes))
-  print('img'), print(img)
+  img_np = np.array(Image.open(BytesIO(img_bytes)))
+  print('img_np'), print(img_np)
   print('pred time')
   pred = learn.predict(img_np)[0]
   print('pred'), print(pred)
