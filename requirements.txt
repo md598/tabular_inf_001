@@ -14,7 +14,7 @@ pip
 scikit-learn
 scipy
 spacy
-fastai --upgrade
+fastai
 uvicorn
 ipykernel
 starlette
