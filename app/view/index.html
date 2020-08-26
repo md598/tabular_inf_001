@@ -7,9 +7,10 @@
 <body>
 <div>
   <div class='center'>
-    <div class='title'>Classify Images</div>
+    <div class='title'>Predict Pre Pos EDD</div>
     <p>
-      Use images of <strong>cats</strong> on motorcycles, in space, or running, or <strong>dogs</strong> on motorcycles, swimming, or in cars!
+      <!--Use images of <strong>cats</strong> on motorcycles, in space, or running, or <strong>dogs</strong> on motorcycles, swimming, or in cars!-->
+      Upload a csv for a prediction!
     </p>
     <div class='content'>
       <div class='no-display'>
@@ -17,10 +18,10 @@
                class='no-display'
                type='file'
                name='file'
-               accept='image/*'
+               accept='.csv'
                onchange='showPicked(this)'>
       </div>
-      <button class='choose-file-button' type='button' onclick='showPicker()'>Select Image</button>
+      <button class='choose-file-button' type='button' onclick='showPicker()'>Upload file</button>
       <div class='upload-label'>
         <label id='upload-label'>No file chosen</label>
       </div>
