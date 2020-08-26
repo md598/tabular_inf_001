@@ -26,7 +26,7 @@ function analyze(){
     xhr.onerror = function() {alert (xhr.responseText);}
     xhr.onload = function(e) {
         if (this.readyState === 4) {
-          el("result-label").innerHTML = `Result = Good`;
+          el("result-label").innerHTML = `Result = File Accepted`;
           
           download('results.csv', 'results.csv');
           xhr.send();
