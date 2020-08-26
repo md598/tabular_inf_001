@@ -14,8 +14,10 @@ pip
 scikit-learn
 scipy
 spacy
-fastai2
+fastai
 uvicorn
 ipykernel
 starlette
 googledrivedownloader
+csv
+StringIO
