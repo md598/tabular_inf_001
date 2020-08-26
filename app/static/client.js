@@ -14,7 +14,7 @@ function showPicked(input) {
   reader.readAsDataURL(input.files[0]);
 }
 
-#Tabular
+//Tabular
 function analyze(){
     var uploadFiles = el('file-input').files;
     if (uploadFiles.length < 1) alert('Please select 1 file to analyze!');
