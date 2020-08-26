@@ -73,7 +73,8 @@ async def analyze(request):
   learn = load_learner(path/export_file_name)
   # if we want to do GPU:
   # learn.model = learn.model.cuda()
-  dl = learn.dls.train_dl.new(df)
+  #dl = learn.dls.train_dl.new(df) #original
+  dl = learn.dls.test_dl(df)
   _, __, y = learn.get_preds(dl=dl, with_decoded=True)
   df['Predictions'] = y
   # if we want to store the results
