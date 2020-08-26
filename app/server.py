@@ -68,6 +68,8 @@ async def analyze(request):
   s = str(content, 'utf-8')
   data = StringIO(s)
   df = pd.read_csv(data)
+  df.head()
+  print(df)
   learn = load_learner(path/export_file_name)
   # if we want to do GPU:
   # learn.model = learn.model.cuda()
