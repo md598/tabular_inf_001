@@ -1,7 +1,7 @@
 import aiohttp
 import asyncio
 import uvicorn
-from fastai2.vision.all import *
+from fastai.tabular.all import *
 from io import BytesIO
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
@@ -9,15 +9,18 @@ from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from google_drive_downloader import GoogleDriveDownloader as gdd
 import base64
+import StringIO
+import csv
 
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
-#'1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
-#'1Sgq4h-2oLT-DQtr3Nm9Fjco81lwFNj_q' #zip version not working
+#1H7ck0uM35KUxJXyKbxzH3YUgUsNrSISC # 9_features_8_21_2020_v1.pkl
 
-export_file_url = '1-5o0YpAMjnEiewakEdO4xBS9nncwQ9lw'
+
+export_file_url = '1H7ck0uM35KUxJXyKbxzH3YUgUsNrSISC'
 export_file_name = 'export.pkl'
 
-classes = ['Cats on motorcycles','Cats running','Cats in space','Dogs in cars','Dogs on motorcycles','Dogs swimming']
+#classes = ['Cats on motorcycles','Cats running','Cats in space','Dogs in cars','Dogs on motorcycles','Dogs swimming']
+classes = ['0','1','2','3','4','5','6','7','8','9','10','11']
 path = Path(__file__).parent
 
 app = Starlette()
@@ -58,21 +61,42 @@ async def homepage(request):
     html_file = path / 'view' / 'index.html'
     return HTMLResponse(html_file.open().read())
 
-
+#Tabular inference:
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
-  img_data = await request.form()
-  img_bytes = await (img_data['file'].read()) ##original
-  img = Image.open(BytesIO(img_bytes))
-  img_np = np.array(Image.open(BytesIO(img_bytes)))
-  print('img_np'), print(img_np)
-  print('pred time')
-  pred = learn.predict(img_np)[0]
-  print('pred'), print(pred)
-  print('pred_all'),print(learn.predict(img_np))
-  return JSONResponse({
-      'result': str(pred) ##original
-  })
+  data = await request.form()
+  content = await (data['file'].read())
+  s = str(content, 'utf-8')
+  data = StringIO(s)
+  df = pd.read_csv(data)
+  learn = load_learner(path/export_file_name)
+  # if we want to do GPU:
+  # learn.model = learn.model.cuda()
+  dl = learn.dls.train_dl.new(df)
+  _, __, y = learn.get_preds(dl=dl, with_decoded=True)
+  df['Predictions'] = y
+  # if we want to store the results
+  path_res = Path('app/static/')
+  df.to_csv(path_res/'results.csv')
+
+  return FileResponse('results.csv', media_type='csv')
+
+
+
+#@app.route('/analyze', methods=['POST'])
+#async def analyze(request):
+#  img_data = await request.form()
+#  img_bytes = await (img_data['file'].read()) ##original
+#  img = Image.open(BytesIO(img_bytes))
+#  img_np = np.array(Image.open(BytesIO(img_bytes)))
+#  print('img_np'), print(img_np)
+#  print('pred time')
+#  pred = learn.predict(img_np)[0]
+#  print('pred'), print(pred)
+#  print('pred_all'),print(learn.predict(img_np))
+#  return JSONResponse({
+#      'result': str(pred) ##original
+# })
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
