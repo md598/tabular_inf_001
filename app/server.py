@@ -77,7 +77,10 @@ async def analyze(request):
   dl = learn.dls.test_dl(df)
   _, __, y = learn.get_preds(dl=dl, with_decoded=True)
   print(y)
-  df['Predictions'] = y
+  #y is a tensor, convert to numpy
+  preds = y.numpy()
+  print(preds)
+  df['Predictions'] = preds
   # if we want to store the results
   path_res = Path('app/static/')
   df.to_csv(path_res/'results.csv')
