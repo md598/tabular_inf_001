@@ -42,10 +42,14 @@ function analyze(){
     xhr.onload = function(e) {
         if (this.readyState === 4) {
           // wanting to send the user the csv file saved in 'analyze' in server.py
-          //el("result-label").innerHTML = `Result = File Accepted`;
-          el("result-label").innerHTML = '${loc.protocol}//${loc.hostname}/app/static/results.csv';
+          el("result-label").innerHTML = `Result = File Accepted`;
+          //el("result-label").innerHTML = '${loc.protocol}//${loc.hostname}/app/static/results.csv';
+          //console.log('${loc.protocol}//${loc.hostname}/app/static/results.csv');
           //download('results.csv', 'results.csv');
-          download2('results.csv','${loc.protocol}//${loc.hostname}/app/static/results.csv');
+          //download2('results.csv','${loc.protocol}//${loc.hostname}/app/static/results.csv');
+          var path = loc.protocol + '//' +  loc.hostname + '/app/static/results.csv';
+          console.log(path);
+          download2('results.csv',path);
           el("result-label").innerHTML = 'download';
           xhr.send();
         }
