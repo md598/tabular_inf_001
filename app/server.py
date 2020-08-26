@@ -5,7 +5,7 @@ from fastai.tabular.all import *
 from io import BytesIO, StringIO
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse, FileResponse
 from starlette.staticfiles import StaticFiles
 from google_drive_downloader import GoogleDriveDownloader as gdd
 import base64
