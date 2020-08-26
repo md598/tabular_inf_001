@@ -81,7 +81,7 @@ async def analyze(request):
   path_res = Path('app/static/')
   df.to_csv(path_res/'results.csv')
 
-  return FileResponse('results.csv', media_type='csv')
+  return FileResponse(path_res/'results.csv', media_type='csv')
 
 
 
