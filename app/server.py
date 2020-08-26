@@ -69,7 +69,7 @@ async def analyze(request):
   data = StringIO(s)
   df = pd.read_csv(data)
   df.head()
-  df.T.head()
+  #df.T.head()
   learn = load_learner(path/export_file_name)
   # if we want to do GPU:
   # learn.model = learn.model.cuda()
@@ -80,13 +80,14 @@ async def analyze(request):
   #y is a tensor, convert to numpy
   preds = y.numpy()
   print(preds)
-  preds.shape
-  df['Predictions'] = preds
-  #df = pd.concat([df, pd.DataFrame(preds)], axis=1)
-  df.T.head()
+  print(preds.shape)
+  #df['Predictions'] = preds
+  df = pd.concat([df, pd.DataFrame(preds)], axis=1)
+  df.head()
   print('add preds')
   # if we want to store the results
   path_res = Path('app/static/')
+  print(path_res)
   df.to_csv(path_res/'results.csv')
   df.head()
   print('inference done')
