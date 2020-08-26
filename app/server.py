@@ -10,6 +10,8 @@ from starlette.staticfiles import StaticFiles
 from google_drive_downloader import GoogleDriveDownloader as gdd
 import base64
 import csv
+import warnings
+warnings.filterwarnings('ignore')
 
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
 #1H7ck0uM35KUxJXyKbxzH3YUgUsNrSISC # 9_features_8_21_2020_v1.pkl
@@ -69,8 +71,6 @@ async def analyze(request):
   s = str(content, 'utf-8')
   data = StringIO(s)
   df = pd.read_csv(data)
-  df.head()
-  #df.T.head()
   learn = load_learner(path/export_file_name)
   # if we want to do GPU:
   # learn.model = learn.model.cuda()
@@ -82,15 +82,15 @@ async def analyze(request):
   preds = y.numpy()
   print(preds)
   print(preds.shape)
-  #df['Predictions'] = preds
-  df = pd.concat([df, pd.DataFrame(preds)], axis=1)
-  df.head()
+  df['predictions'] = preds
+  #df = pd.concat([df, pd.DataFrame(preds)], axis=1)
+  df.info()
   print('add preds')
   # if we want to store the results
   path_res = Path('app/static/')
   print(path_res)
   df.to_csv(path_res/'results.csv')
-  df.head()
+  df.predictions.values
   print('inference done')
   #return FileResponse(path_res/'results.csv', media_type='csv')
   return FileResponse(f'{path_res}/results.csv', media_type='csv')
