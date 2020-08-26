@@ -25,6 +25,7 @@ function analyze(){
     xhr.onerror = function() {alert (xhr.responseText);}
     xhr.onload = function(e) {
         if (this.readyState === 4) {
+          // wanting to send the user the csv file saved in 'analyze' in server.py
           el("result-label").innerHTML = `Result = File Accepted`;
           download('results.csv', 'results.csv');
           xhr.send();
@@ -32,11 +33,10 @@ function analyze(){
         el("analyze-button").innerHTML = "Analyze";
       };
 
-      var fileData = new FormData();
-      //fileData.append("file", uploadFiles[0]); //original
-      fileData.append('results.csv', uploadFiles[0]);
-      xhr.send(fileData);
-    }
+    var fileData = new FormData();
+    fileData.append("file", uploadFiles[0]); 
+    xhr.send(fileData);
+}
 
 
 /*Vision
