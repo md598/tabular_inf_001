@@ -63,6 +63,7 @@ async def homepage(request):
 #Tabular inference:
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
+  print('analyze begin')
   data = await request.form()
   content = await (data['file'].read())
   s = str(content, 'utf-8')
