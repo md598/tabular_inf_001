@@ -19,5 +19,4 @@ uvicorn
 ipykernel
 starlette
 googledrivedownloader
-csv
 StringIO
