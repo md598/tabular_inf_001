@@ -86,15 +86,13 @@ async def analyze(request):
   #df = pd.concat([df, pd.DataFrame(preds)], axis=1)
   df.info()
   print('add preds')
-  # if we want to store the results
   path_res = Path('app/static/')
   print(path_res)
   df.to_csv(path_res/'results.csv')
-  df.predictions.values
   print('inference done')
   #return FileResponse(path_res/'results.csv', media_type='csv')
-  return FileResponse(f'{path_res}/results.csv', media_type='csv')
-
+  #return FileResponse(f'{path_res}/results.csv', media_type='csv')
+  return FileResponse('app/static/results.csv', media_type='csv')
 
 
 #@app.route('/analyze', methods=['POST'])
