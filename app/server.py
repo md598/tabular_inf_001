@@ -11,6 +11,7 @@ from google_drive_downloader import GoogleDriveDownloader as gdd
 import base64
 import csv
 import warnings
+import os
 warnings.filterwarnings('ignore')
 
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
@@ -90,7 +91,7 @@ async def analyze(request):
   print(path_res)
   df.to_csv(path_res/'results.csv')
   print('inference done')
-  #!ls
+  print(os.listdir())
   #return FileResponse(path_res/'results.csv', media_type='csv')
   #return FileResponse(f'{path_res}/results.csv', media_type='csv')
   return FileResponse('app/static/results.csv', media_type='csv')
