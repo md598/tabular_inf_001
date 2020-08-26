@@ -49,9 +49,18 @@ function analyze(){
           //download2('results.csv','${loc.protocol}//${loc.hostname}/app/static/results.csv');
           var path = loc.protocol + '//' +  loc.hostname + '/app/static/results.csv';
           console.log(path);
-          download2('results.csv',path);
+          //download2('results.csv',path);
+          var alink = document.createElement('a');
+          alink.setAttribute('href', path);
+          alink.setAttribute('download', 'results.csv');
+          alink.style.display = 'none';
+          document.body.appendChild(alink);
+          console.log(alink.innerHTML);
+          console.log('waypoint2');
+          alink.click();
+          document.body.removeChild(alink);
           el("result-label").innerHTML = 'download';
-          xhr.send();
+          //xhr.send();
         }
         el("analyze-button").innerHTML = "Analyze";
       };
