@@ -21,7 +21,7 @@ function analyze(){
 
     el('analyze-button').innerHTML = 'Analyzing...';
     var xhr = new XMLHttpRequest();
-    var loc = window.location
+    var loc = window.location;
     xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, true);
     xhr.onerror = function() {alert (xhr.responseText);}
     xhr.onload = function(e) {
