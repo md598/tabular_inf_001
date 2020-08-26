@@ -76,11 +76,11 @@ async def analyze(request):
   #dl = learn.dls.train_dl.new(df) #original
   dl = learn.dls.test_dl(df)
   _, __, y = learn.get_preds(dl=dl, with_decoded=True)
+  print(y)
   df['Predictions'] = y
   # if we want to store the results
   path_res = Path('app/static/')
   df.to_csv(path_res/'results.csv')
-  df.T.head()
   df.head()
   print('inference done')
   #return FileResponse(path_res/'results.csv', media_type='csv')
