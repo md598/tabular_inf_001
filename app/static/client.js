@@ -14,10 +14,11 @@ function showPicked(input) {
   reader.readAsDataURL(input.files[0]);
 }
 
-//download
-function download2(filename, text) {
+//download local csv
+function download2(filename, url) {
   var alink = document.createElement('a');
-  alink.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(text));
+  //alink.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(text));
+  alink.setAttribute('href', url);
   alink.setAttribute('download', filename);
 
   alink.style.display = 'none';
@@ -41,9 +42,11 @@ function analyze(){
     xhr.onload = function(e) {
         if (this.readyState === 4) {
           // wanting to send the user the csv file saved in 'analyze' in server.py
-          el("result-label").innerHTML = `Result = File Accepted`;
+          //el("result-label").innerHTML = `Result = File Accepted`;
+          el("result-label").innerHTML = `${loc.protocol}//${loc.hostname}/app/static/results.csv`;
           //download('results.csv', 'results.csv');
-          el("result-label").innerHTML = `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`;
+          download2('results.csv',`${loc.protocol}//${loc.hostname}/app/static/results.csv')`
+          el("result-label").innerHTML = `download`;
           xhr.send();
         }
         el("analyze-button").innerHTML = "Analyze";
