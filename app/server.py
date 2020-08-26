@@ -80,7 +80,7 @@ async def analyze(request):
   # if we want to store the results
   path_res = Path('app/static/')
   df.to_csv(path_res/'results.csv')
-
+  df.Predictions
   #return FileResponse(path_res/'results.csv', media_type='csv')
   return FileResponse(f'{path_res}/results.csv', media_type='csv')
 
