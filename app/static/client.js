@@ -27,7 +27,8 @@ function analyze(){
         if (this.readyState === 4) {
           // wanting to send the user the csv file saved in 'analyze' in server.py
           el("result-label").innerHTML = `Result = File Accepted`;
-          download('results.csv', 'results.csv');
+          //download('results.csv', 'results.csv');
+          el("result-label").innerHTML = `Result = File Accepted2`;
           xhr.send();
         }
         el("analyze-button").innerHTML = "Analyze";
