@@ -14,6 +14,21 @@ function showPicked(input) {
   reader.readAsDataURL(input.files[0]);
 }
 
+//download
+function download2(filename, text) {
+  var alink = document.createElement('a');
+  alink.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(text));
+  alink.setAttribute('download', filename);
+
+  alink.style.display = 'none';
+  document.body.appendChild(alink);
+
+  alink.click();
+
+  document.body.removeChild(alink);
+}
+
+
 //Tabular
 function analyze(){
     var uploadFiles = el('file-input').files;
@@ -28,7 +43,7 @@ function analyze(){
           // wanting to send the user the csv file saved in 'analyze' in server.py
           el("result-label").innerHTML = `Result = File Accepted`;
           //download('results.csv', 'results.csv');
-          el("result-label").innerHTML = `Result = File Accepted2`;
+          el("result-label").innerHTML = `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`;
           xhr.send();
         }
         el("analyze-button").innerHTML = "Analyze";
