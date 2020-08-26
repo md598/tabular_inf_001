@@ -2,14 +2,13 @@ import aiohttp
 import asyncio
 import uvicorn
 from fastai.tabular.all import *
-from io import BytesIO
+from io import BytesIO, StringIO
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from google_drive_downloader import GoogleDriveDownloader as gdd
 import base64
-import StringIO
 import csv
 
 #https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
