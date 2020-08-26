@@ -45,7 +45,7 @@ function analyze(){
           //el("result-label").innerHTML = `Result = File Accepted`;
           el("result-label").innerHTML = `${loc.protocol}//${loc.hostname}/app/static/results.csv`;
           //download('results.csv', 'results.csv');
-          download2('results.csv',`${loc.protocol}//${loc.hostname}/app/static/results.csv')`
+          download2('results.csv',`${loc.protocol}//${loc.hostname}/app/static/results.csv');
           el("result-label").innerHTML = `download`;
           xhr.send();
         }
