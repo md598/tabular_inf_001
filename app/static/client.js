@@ -44,7 +44,7 @@ function analyze(){
     el('analyze-button').innerHTML = 'Analyzing...';
     var xhr = new XMLHttpRequest();
     var loc = window.location;
-    xhr.open("POST", '${loc.protocol}//${loc.hostname}:${loc.port}/analyze', true);
+    xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,true);
     xhr.onerror = function() {alert (xhr.responseText);}
     xhr.onload = function(e) {
         if (this.readyState === 4) {
@@ -61,8 +61,8 @@ function analyze(){
           alink.setAttribute('href', path);
           alink.setAttribute('download', 'results.csv');
           alink.style.display = 'none';
-          document.body.appendChild(alink);
           console.log(alink.innerHTML);
+          document.body.appendChild(alink);
           console.log('waypoint2');
           alink.click();
           document.body.removeChild(alink);
