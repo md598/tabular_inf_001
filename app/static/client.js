@@ -56,7 +56,7 @@ function analyze(){
           //console.log('${loc.protocol}//${loc.hostname}/app/static/results.csv');
           //download('results.csv', 'results.csv');
           //download2('results.csv','${loc.protocol}//${loc.hostname}/app/static/results.csv');
-          var path = loc.protocol + '//' +  loc.hostname + '/app/static/results.csv';
+          var path = loc.protocol + '//' +  loc.hostname + '/static/results.csv';
           console.log(path);
           //download2('results.csv',path);
           var alink = document.createElement('a');
