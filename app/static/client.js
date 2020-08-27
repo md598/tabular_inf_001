@@ -63,12 +63,13 @@ function analyze(){
           alink.setAttribute('href', path);
           alink.setAttribute('download', 'results.csv');
           alink.style.display = 'none';
-          console.log(alink.innerHTML);
+          var link2 = alink.innerHTML;
+          console.log(link2);
           document.body.appendChild(alink);
-          console.log('waypoint2');
           alink.click();
+          console.log('after download');
           document.body.removeChild(alink);
-          el("result-label").innerHTML = 'download';
+          el("result-label").innerHTML = el("result-label").innerHTML + ' download';
           //xhr.send();
         }
         el("analyze-button").innerHTML = "Analyze";
