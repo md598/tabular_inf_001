@@ -91,7 +91,6 @@ async def analyze(request):
   print(path_res)
   df.to_csv(path_res/'results.csv')
   print('inference done')
-  print(os.listdir(path_res))
   #return FileResponse(path_res/'results.csv', media_type='csv')
   #return FileResponse(f'{path_res}/results.csv', media_type='csv')
   return FileResponse('app/static/results.csv', media_type='csv')
