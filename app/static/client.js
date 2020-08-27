@@ -6,6 +6,7 @@ function showPicker() {
   el("upload-label").innerHTML = 'picked';
 }
 
+/*
 function showPicked(input) {
   el("upload-label").innerHTML = input.files[0].name;
   var reader = new FileReader();
@@ -17,6 +18,7 @@ function showPicked(input) {
   };
   reader.readAsDataURL(input.files[0]);
 }
+*/
 
 /*
 //download local csv
