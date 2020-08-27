@@ -44,7 +44,9 @@ function analyze(){
     el('analyze-button').innerHTML = 'Analyzing...';
     var xhr = new XMLHttpRequest();
     var loc = window.location;
+    console.log('pre POST');
     xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,true);
+    console.log('after POST line');
     xhr.onerror = function() {alert (xhr.responseText);}
     xhr.onload = function(e) {
         if (this.readyState === 4) {
@@ -75,6 +77,7 @@ function analyze(){
     var fileData = new FormData();
     fileData.append("file", uploadFiles[0]); 
     xhr.send(fileData);
+    console.log('sent');
 }
 
 
