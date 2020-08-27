@@ -2,18 +2,23 @@ var el = x => document.getElementById(x);
 
 function showPicker() {
   el("file-input").click();
+  console.log('showPicker');
+  el("upload-label").innerHTML = 'picked';
 }
 
 function showPicked(input) {
   el("upload-label").innerHTML = input.files[0].name;
   var reader = new FileReader();
   reader.onload = function(e) {
+    console.log('showPicked1');
     el("image-picked").src = e.target.result;
     el("image-picked").className = "";
+    console.log('showPicked2');
   };
   reader.readAsDataURL(input.files[0]);
 }
 
+/*
 //download local csv
 function download2(filename, url) {
   var alink = document.createElement('a');
@@ -28,7 +33,7 @@ function download2(filename, url) {
 
   document.body.removeChild(alink);
 }
-
+*/
 
 //Tabular
 function analyze(){
@@ -64,7 +69,7 @@ function analyze(){
         }
         el("analyze-button").innerHTML = "Analyze";
       };
-
+    console.log('waypoint3');
     var fileData = new FormData();
     fileData.append("file", uploadFiles[0]); 
     xhr.send(fileData);
